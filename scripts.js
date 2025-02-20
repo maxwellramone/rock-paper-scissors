@@ -1,6 +1,8 @@
 let humanScore = 0;
 let computerScore = 0;
-
+const start_button = document.getElementById("start_button");
+const button_container = document.getElementById("button_container");
+const result_container = document.getElementById("result_container");
 
 function getComputerChoice(){
     let number = (parseInt(3 * Math.random())) + 1;
@@ -21,7 +23,13 @@ function getHumanChoice(){
 }
 
 
-function playRound(humanChoice, computerChoice){
+function playRound(computerChoice){
+    
+
+    humanChoice = rock_button.addEventListener("click",() => {return "rock"});
+    paper_button.addEventListener("click",() => {return "paper"});
+    scissors_button.addEventListener("click",() => {return "scissors"});
+
     humanChoice = humanChoice.toLowerCase();
 
     switch (humanChoice) {
@@ -68,21 +76,45 @@ function playRound(humanChoice, computerChoice){
 }
 
 
+function addButtons() {
+    const rock_button = document.createElement("button");
+    rock_button.textContent = "Rock";
+
+    const paper_button = document.createElement("button");
+    paper_button.textContent = "Paper";
+
+    const scissors_button = document.createElement("button");
+    scissors_button.textContent = "Scissors";
+
+
+    button_container.appendChild(rock_button);
+    button_container.appendChild(paper_button);
+    button_container.appendChild(scissors_button);
+}
+
 
 function playGame(){
     humanScore = 0;
     computerScore = 0;
+    start_button.remove();
+    addButtons();
+    
+    
+    playRound(getComputerChoice());
 
-    for(let i = 0; i < 5; i++){
-        playRound(getHumanChoice(), getComputerChoice());
-
-    }
+    
+    
     if(humanScore > computerScore){
-        console.log("Human Wins The Game!");
+        const win = document.createElement("div");
+        win.textContent = "You Win!";
+        result_container.appendChild(win);
+
     }
     else {
-        console.log("Computer Wins The Game!");
+        const lose = document.createElement("div");
+        lose.textContent = "You Lost!";
+        result_container.appendChild(lose);
     }
 }
 
-playGame();
+start_button.addEventListener("click", playGame);
